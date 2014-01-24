@@ -1,0 +1,107 @@
+var SQYLat=47.785463;
+var SQYLong=2.059722;
+var BrestLat=48.785463;
+var BrestLong=2.01302;
+
+//var red = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+//var blue = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+// var shadow = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/msmaeker.shadow.png',
+var SQY={
+     icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png', 
+     shadow: 'http://maps.google.com/mapfiles/ms/icons/msmarker.shadow.png',
+     position: new google.maps.LatLng(SQYLat,SQYLong)
+};
+
+var Brest={
+     icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+     shadow: 'http://maps.google.com/mapfiles/ms/icons/msmarker.shadow.png',
+     position: new google.maps.LatLng(BrestLat,BrestLong)
+};
+
+var controls = [
+  ['Start/Finish', 48.785463, 2.059722, 9],
+  ['Mortange (Control #1 & #13)', 48.521408,0.541288, 8],
+  ['Villaines (Control #2 & #12', 48.344613,-0.281099, 7],
+  ['Fourgeres (Control #3 & #11)', 48.346025,-1.199809, 6],
+  ['Titaneiac (Control #4 & #10)', 48.33286,-1.826545, 5],
+  ['Loudeac (Control #5 & #9)', 48.172955,-2.75165, 4],
+  ['Carhaix (Control #6 & #8)', 48.278709,-3.545759, 3],
+  ['Brest (Control #7, Uturn)', 48.391099,-4.480083, 2],
+  ['Dreux(Controle #14)', 48.730457,1.363258, 1]
+];
+
+function setMarkers(map, locations) {
+  // Add markers to the map
+
+  // Marker sizes are expressed as a Size of X,Y
+  // where the origin of the image (0,0) is located
+  // in the top left of the image.
+
+  // Origins, anchor positions and coordinates of the marker
+  // increase in the X direction to the right and in
+  // the Y direction down.
+  var image = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+      // This marker is 20 pixels wide by 32 pixels tall.
+      new google.maps.Size(27, 32),
+      // The origin for this image is 0,0.
+      new google.maps.Point(0,0),
+      // The anchor for this image is the base of the flagpole at 0,32.
+      new google.maps.Point(0, 32));
+  var image_red = new google.maps.MarkerImage('http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+      // This marker is 20 pixels wide by 32 pixels tall.
+      new google.maps.Size(27, 32),
+      // The origin for this image is 0,0.
+      new google.maps.Point(0,0),
+      // The anchor for this image is the base of the flagpole at 0,32.
+      new google.maps.Point(0, 32));
+  var shadow = new google.maps.MarkerImage('http://maps.google.co.jp/mapfiles/ms/icons/msmarker.shadow.png',
+      // The shadow image is larger in the horizontal dimension
+      // while the position and offset are the same as for the main image.
+      new google.maps.Size(37, 32),
+      new google.maps.Point(0,0),
+      new google.maps.Point(0, 32));
+      // Shapes define the clickable region of the icon.
+      // The type defines an HTML &lt;area&gt; element 'poly' which
+      // traces out a polygon as a series of X,Y points. The final
+      // coordinate closes the poly by connecting to the first
+      // coordinate.
+  var shape = {
+      coord: [1, 1, 1, 20, 18, 20, 18 , 1],
+      type: 'poly'
+  };
+  var pos = new Array();
+  for (var i = 0; i < locations.length; i++) {
+      var p = locations[i];
+      pos.push(new Array(p[0],p[1],p[2],p[3]));
+  }
+  var markerarray = new Array();
+  for (var i = 0; i < locations.length; i++) {
+      if (i == 0 )
+         var img = image_red;
+      else
+         var img = image;
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(pos[i][1], pos[i][2]),
+        shadow: shadow,
+        icon: img,
+        shape: shape,
+        title: pos[i][0],
+        zIndex: pos[i][3]
+      });
+      marker.setMap(map);
+//      markerarray.push(marker);
+//      marker.setMap(map);
+  }
+//  for (var i = 0; i < locations.length; i++) {
+//      var msg = pos[i][0];
+//     (markerarray[i]).setMap(map);
+//      var msg = "test";
+//      var infowindow = new google.maps.InfoWindow({
+//        content: msg,
+//        size: new google.maps.Size(30, 30)
+//      });
+//      google.maps.event.addListener(markerarray[i],'click', function() {
+//         infowindow.open(map, markerarray[i]);
+//     });
+//  }
+}
